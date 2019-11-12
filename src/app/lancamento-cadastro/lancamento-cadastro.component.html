@@ -1,5 +1,5 @@
 <div class="container">
-  <form autocomplete="off">
+  <form #cadastroForm="ngForm" autocomplete="off">
 
     <div class="ui-g">
       <div class="ui-g-12">
@@ -14,11 +14,19 @@
         <label>Vencimento</label>
         <p-calendar dateFormat="dd/mm/yy"
           [inline]="false" [readonlyInput]="false"
-          [showIcon]="false"></p-calendar>
+          [showIcon]="false"
+          name="vencimento" #vencimento="ngModel" required ngModel></p-calendar>
+
+          <app-message [control]="vencimento" error="required"
+          text="Informe uma data."></app-message>
       </div>
       <div class="ui-g-6 ui-md-3 ui-fluid">
         <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
-        <p-calendar dateFormat="dd/mm/yy"></p-calendar>
+        <p-calendar dateFormat="dd/mm/yy"
+        name="pagamento" #pagamento="ngModel" required ngModel></p-calendar>
+
+        <app-message [control]="pagamento" error="required"
+        text="Informe uma data."></app-message>
       </div>
 
       <div class="ui-g-12 ui-md-9 ui-fluid">
@@ -31,11 +39,6 @@
 
         <app-message [control]="descricao" error="minlength"
         text="Minimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres."></app-message>
-
-        <!-- <div *ngIf="descricao.hasError('required') && descricao.dirty"
-          class="ui-message ui-messages-error">
-          Informe uma descrição
-        </div> -->
       </div>
 
       <div class="ui-g-12 ui-md-3 ui-fluid">
@@ -55,12 +58,20 @@
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label for="">Pessoa {{ pessoa.value }}</label>
         <p-dropdown [options]="pessoas" placeholder="Selecione"
-        [autoWidth]="false" [filter]=true #pessoa></p-dropdown>
+        [autoWidth]="false" [filter]=true name="pessoa"
+        ngModel #pessoa="ngModel" required></p-dropdown>
+
+        <app-message [control]="pessoa" error="required"
+        text="Informe uma pessoa"></app-message>
       </div>
 
       <div class="ui-g-12 ui-fluid">
         <label>Observação</label>
-        <textarea pInputTextarea rows="3"></textarea>
+        <textarea pInputTextarea rows="3" ngModel
+          name="observacao" #observacao="ngModel" required></textarea>
+
+        <app-message [control]="observacao" error="required"
+        text="Informe uma observação"></app-message>
       </div>
 
       <div class="ui-g-12">
