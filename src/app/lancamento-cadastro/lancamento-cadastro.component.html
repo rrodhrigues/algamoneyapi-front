@@ -1,5 +1,5 @@
 <div class="container">
-  <form #cadastroForm="ngForm" autocomplete="off">
+  <form #cadastroForm="ngForm" (ngSubmit)="salvar(cadastroForm)" autocomplete="off">
 
     <div class="ui-g">
       <div class="ui-g-12">
@@ -75,7 +75,8 @@
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="submit" label="Salvar"
+          [disabled]="!cadastroForm.valid"></button>
         <button pButton type="button" label="Novo" class="ui-button-info"></button>
         <a href="javascript:;">Voltar para a pesquisa</a>
       </div>
