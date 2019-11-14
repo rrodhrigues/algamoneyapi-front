@@ -30,7 +30,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   salvar(form: NgForm): void {
-    console.log(form.value);
+    console.log(form.value.observacao);
   }
 
 }
