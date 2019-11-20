@@ -17,16 +17,16 @@
           [showIcon]="false"
           name="vencimento" #vencimento="ngModel" required ngModel></p-calendar>
 
-          <app-message [control]="vencimento" error="required"
-          text="Informe uma data."></app-message>
+          <!-- <app-message [control]="vencimento" error="required"
+          text="Informe uma data."></app-message> -->
       </div>
       <div class="ui-g-6 ui-md-3 ui-fluid">
         <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
         <p-calendar dateFormat="dd/mm/yy"
         name="pagamento" #pagamento="ngModel" required ngModel></p-calendar>
 
-        <app-message [control]="pagamento" error="required"
-        text="Informe uma data."></app-message>
+        <!-- <app-message [control]="pagamento" error="required"
+        text="Informe uma data."></app-message> -->
       </div>
 
       <div class="ui-g-12 ui-md-9 ui-fluid">
@@ -34,11 +34,11 @@
         <input pInputText type="text" name="descricao"
           ngModel #descricao="ngModel" required minlength="5">
 
-        <app-message [control]="descricao" error="required"
+        <!-- <app-message [control]="descricao" error="required"
         text="Informe uma descrição"></app-message>
 
         <app-message [control]="descricao" error="minlength"
-        text="Minimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres."></app-message>
+        text="Minimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres."></app-message> -->
       </div>
 
       <div class="ui-g-12 ui-md-3 ui-fluid">
@@ -61,8 +61,8 @@
         [autoWidth]="false" [filter]=true name="pessoa"
         ngModel #pessoa="ngModel" required></p-dropdown>
 
-        <app-message [control]="pessoa" error="required"
-        text="Informe uma pessoa"></app-message>
+        <!-- <app-message [control]="pessoa" error="required"
+        text="Informe uma pessoa"></app-message> -->
       </div>
 
       <div class="ui-g-12 ui-fluid">
@@ -70,8 +70,8 @@
         <textarea pInputTextarea rows="3" ngModel
           name="observacao" #observacao="ngModel" required></textarea>
 
-        <app-message [control]="observacao" error="required"
-        text="Informe uma observação"></app-message>
+        <!-- <app-message [control]="observacao" error="required"
+        text="Informe uma observação"></app-message> -->
       </div>
 
       <div class="ui-g-12">
