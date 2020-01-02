@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { PessoaService, PessoaFiltro } from '../pessoa.service';
+
 import { ToastyService } from 'ng2-toasty';
+import { ConfirmationService } from 'primeng/components/common/api';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -18,7 +20,8 @@ export class PessoasPesquisaComponent {
 
   constructor(
     private pessoaService: PessoaService,
-    private toasty: ToastyService
+    private toasty: ToastyService,
+    private confirmation: ConfirmationService
   ) {}
 
   pesquisar(pagina = 0) {
@@ -36,6 +39,15 @@ export class PessoasPesquisaComponent {
     const pagina = event.first / event.rows;
     this.pesquisar(pagina);
     // console.log(event);
+  }
+
+  confirmarExclusao(pessoa: any) {
+    this.confirmation.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.excluir(pessoa);
+      }
+    });
   }
 
   excluir(pessoa: any) {
