@@ -25,7 +25,8 @@
       emptyMessage="Nenhuma pessoa foi encontrada."
       [paginator]="true" [rows]="filtro.itensPorPagina"
       [lazy]="true" [totalRecords]="totalRegistros"
-      (onLazyLoad)="aoMudarPagina($event)">
+      (onLazyLoad)="aoMudarPagina($event)"
+      #tabela>
 
         <p-column field="nome" header="Nome"></p-column>
         <p-column field="endereco.cidade" header="Cidade"></p-column>
@@ -38,9 +39,12 @@
           </ng-template>
         </p-column>
         <p-column styleClass="col-acoes">
-          <ng-template pTemplate="body">
+          <ng-template let-pes="rowData" pTemplate="body">
             <a pButton icon="fa-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-            <button pButton icon="fa-trash" pTooltip="Excluir" tooltipPosition="top"></button>
+            <button pButton icon="fa-trash"
+              pTooltip="Excluir" tooltipPosition="top"
+              (click)="excluir(pes)">
+            </button>
           </ng-template>
         </p-column>
       </p-dataTable>
