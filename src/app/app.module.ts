@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, LOCALE_ID } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HttpModule } from "@angular/http";
 
@@ -28,7 +28,12 @@ import { PessoaService } from "./pessoas/pessoa.service";
     PessoasModule,
     CoreModule
   ],
-  providers: [LancamentoService, PessoaService, ConfirmationService],
+  providers: [
+    LancamentoService,
+    PessoaService,
+    ConfirmationService,
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
