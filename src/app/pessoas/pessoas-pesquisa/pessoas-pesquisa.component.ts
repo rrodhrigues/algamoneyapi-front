@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { PessoaService, PessoaFiltro } from '../pessoa.service';
+import { ToastyService } from 'ng2-toasty';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -15,7 +16,10 @@ export class PessoasPesquisaComponent {
   pessoas = [];
   @ViewChild('tabela') grid;
 
-  constructor(private pessoaService: PessoaService) {}
+  constructor(
+    private pessoaService: PessoaService,
+    private toasty: ToastyService
+  ) {}
 
   pesquisar(pagina = 0) {
     this. filtro.pagina = pagina;
@@ -37,7 +41,12 @@ export class PessoasPesquisaComponent {
   excluir(pessoa: any) {
     this.pessoaService.excluir(pessoa.codigo)
       .then(() => {
-        this.grid.first = 0;
+        if (this.grid.first === 0)
+          this.pesquisar();
+        else
+          this.grid.first = 0;
+
+        this.toasty.success('Pessoa excluida com sucesso!');
       });
   }
 }
