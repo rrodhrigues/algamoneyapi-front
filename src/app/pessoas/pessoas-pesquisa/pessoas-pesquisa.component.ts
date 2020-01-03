@@ -5,6 +5,7 @@ import { PessoaService, PessoaFiltro } from '../pessoa.service';
 
 import { ToastyService } from 'ng2-toasty';
 import { ConfirmationService } from 'primeng/components/common/api';
+import { ErrorHandlerService } from 'app/core/error-handler.service';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -18,11 +19,10 @@ export class PessoasPesquisaComponent {
   pessoas = [];
   @ViewChild('tabela') grid;
 
-  constructor(
-    private pessoaService: PessoaService,
-    private toasty: ToastyService,
-    private confirmation: ConfirmationService
-  ) {}
+  constructor(private pessoaService: PessoaService,
+              private toasty: ToastyService,
+              private confirmation: ConfirmationService,
+              private errorHandlerService: ErrorHandlerService) {}
 
   pesquisar(pagina = 0) {
     this. filtro.pagina = pagina;
@@ -32,7 +32,8 @@ export class PessoasPesquisaComponent {
         this.totalRegistros = resultado.total;
         this.pessoas = resultado.pessoas;
         // console.log(this.pessoas);
-      });
+      })
+      .catch(error => this.errorHandlerService.handle(error));
   }
 
   aoMudarPagina(event: LazyLoadEvent) {
@@ -59,6 +60,7 @@ export class PessoasPesquisaComponent {
           this.grid.first = 0;
 
         this.toasty.success('Pessoa excluida com sucesso!');
-      });
+      })
+      .catch(error => this.errorHandlerService.handle(error));
   }
 }

@@ -16,7 +16,7 @@ export class PessoaService {
 
   constructor(private http: Http) { }
 
-  pesquisar(filtro: PessoaFiltro): Promise<any> {
+  async pesquisar(filtro: PessoaFiltro): Promise<any> {
     const params = new URLSearchParams();
     const headers = new Headers();
     headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
@@ -28,41 +28,35 @@ export class PessoaService {
       params.set('nome', filtro.nome);
     }
 
-    return this.http
+    const response = await this.http
       .get(`${this.pessoasURl}`, { headers, search: params })
-      .toPromise()
-      .then(response => {
-        const responseJson = response.json();
-        const pessoas = responseJson.content;
-
-        const resultado = {
-          pessoas,
-          total: responseJson.totalElements
-        };
-
-        return resultado;
-      })
+      .toPromise();
+    const responseJson = response.json();
+    const pessoas = responseJson.content;
+    const resultado = {
+      pessoas,
+      total: responseJson.totalElements
+    };
+    return resultado;
   }
 
-  listarTodas(): Promise<any> {
+  async listarTodas(): Promise<any> {
     const headers = new Headers();
     headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http
-      .get(this.pessoasURl, {headers})
-      .toPromise()
-      .then(respone => respone.json().content);
+    const respone = await this.http
+      .get(this.pessoasURl, { headers })
+      .toPromise();
+    return respone.json().content;
   }
 
-  excluir(codigo: number): Promise<void> {
+  async excluir(codigo: number): Promise<void> {
     const headers = new Headers();
     headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
 
-    return this.http
-    .delete(`${ this.pessoasURl}/${codigo}`, { headers })
-    .toPromise()
-    .then(() => null);
+    await this.http
+      .delete(`${this.pessoasURl}/${codigo}`, { headers })
+      .toPromise();
+    return null;
   }
-
-
 }
