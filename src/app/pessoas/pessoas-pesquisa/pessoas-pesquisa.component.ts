@@ -46,13 +46,29 @@ export class PessoasPesquisaComponent {
     this.confirmation.confirm({
       message: 'Tem certeza que deseja excluir?',
       accept: () => {
-        this.excluir(pessoa);
+        // this.excluir(pessoa);
+        this.desativar(pessoa);
       }
     });
   }
 
   excluir(pessoa: any) {
     this.pessoaService.excluir(pessoa.codigo)
+      .then(() => {
+        if (this.grid.first === 0)
+          this.pesquisar();
+        else
+          this.grid.first = 0;
+
+        this.toasty.success('Pessoa excluida com sucesso!');
+      })
+      .catch(error => this.errorHandlerService.handle(error));
+  }
+
+  desativar(pessoa: any) {
+    if (pessoa.ativo === 'ativo' ? pessoa.ativo = 'false' : pessoa.ativo = 'true')
+
+    this.pessoaService.desativar(pessoa.codigo, pessoa.ativo)
       .then(() => {
         if (this.grid.first === 0)
           this.pesquisar();

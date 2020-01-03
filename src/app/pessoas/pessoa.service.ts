@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import { UrlResolver } from '@angular/compiler';
 
 export class PessoaFiltro {
   nome: string;
@@ -31,12 +32,12 @@ export class PessoaService {
     const response = await this.http
       .get(`${this.pessoasURl}`, { headers, search: params })
       .toPromise();
-    const responseJson = response.json();
-    const pessoas = responseJson.content;
-    const resultado = {
-      pessoas,
-      total: responseJson.totalElements
-    };
+      const responseJson = response.json();
+      const pessoas = responseJson.content;
+      const resultado = {
+        pessoas,
+        total: responseJson.totalElements
+      };
     return resultado;
   }
 
@@ -56,6 +57,17 @@ export class PessoaService {
 
     await this.http
       .delete(`${this.pessoasURl}/${codigo}`, { headers })
+      .toPromise();
+    return null;
+  }
+
+  async desativar(codigo: number, situacao: boolean): Promise<void> {
+    const headers = new Headers();
+    const body = situacao;
+    headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+
+    await this.http
+      .put(`${this.pessoasURl}/${codigo}/ativo`, body, { headers })
       .toPromise();
     return null;
   }
