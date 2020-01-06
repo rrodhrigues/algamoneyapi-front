@@ -47,7 +47,7 @@ export class PessoasPesquisaComponent {
       message: 'Tem certeza que deseja excluir?',
       accept: () => {
         // this.excluir(pessoa);
-        this.desativar(pessoa);
+        this.alterarStatus(pessoa);
       }
     });
   }
@@ -65,10 +65,10 @@ export class PessoasPesquisaComponent {
       .catch(error => this.errorHandlerService.handle(error));
   }
 
-  desativar(pessoa: any) {
-    pessoa.ativo = (pessoa.ativo === true) ? false : true;
+  alterarStatus(pessoa: any) {
+    const situacao: boolean = (pessoa.ativo === true) ? false : true;
 
-    this.pessoaService.desativar(pessoa)
+    this.pessoaService.alterarStatus(pessoa, situacao)
       .then(() => {
         if (this.grid.first === 0)
           this.pesquisar();
