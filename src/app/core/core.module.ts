@@ -10,6 +10,7 @@ import { ConfirmDialogModule } from "primeng/components/confirmdialog/confirmdia
 import { LancamentoService } from "./../lancamentos/lancamento.service";
 import { PessoaService } from "./../pessoas/pessoa.service";
 import { ConfirmationService } from "primeng/components/common/api";
+import { CategoriaService } from "app/categoria/categoria.service";
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ConfirmationService } from "primeng/components/common/api";
     LancamentoService,
     PessoaService,
     ConfirmationService,
+    CategoriaService,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
   ]
 })
