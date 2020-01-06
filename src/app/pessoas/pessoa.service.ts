@@ -61,13 +61,15 @@ export class PessoaService {
     return null;
   }
 
-  async desativar(codigo: number, situacao: boolean): Promise<void> {
+  async desativar(pessoa: any): Promise<void> {
     const headers = new Headers();
-    const body = situacao;
+    const ativo: boolean = pessoa.ativo;
+
     headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    headers.append('Content-Type', 'application/json');
 
     await this.http
-      .put(`${this.pessoasURl}/${codigo}/ativo`, body, { headers })
+      .put(`${this.pessoasURl}/${pessoa.codigo}/ativo`, ativo, { headers })
       .toPromise();
     return null;
   }

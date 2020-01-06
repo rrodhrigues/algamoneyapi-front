@@ -66,9 +66,9 @@ export class PessoasPesquisaComponent {
   }
 
   desativar(pessoa: any) {
-    if (pessoa.ativo === 'ativo' ? pessoa.ativo = 'false' : pessoa.ativo = 'true')
+    pessoa.ativo = (pessoa.ativo === true) ? false : true;
 
-    this.pessoaService.desativar(pessoa.codigo, pessoa.ativo)
+    this.pessoaService.desativar(pessoa)
       .then(() => {
         if (this.grid.first === 0)
           this.pesquisar();
