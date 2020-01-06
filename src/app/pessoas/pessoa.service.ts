@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
-import { UrlResolver } from '@angular/compiler';
 
 export class PessoaFiltro {
   nome: string;
