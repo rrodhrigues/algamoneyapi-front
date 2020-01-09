@@ -22,8 +22,9 @@ export class ErrorHandlerService {
           msg = errors[0].mensagemUsuario;
         } catch(e){}
       }
+      msg = 'Erro ao processar serviço remoto, contate o administrador do sistema!!!';
+      console.error('Ocorreu um erro', errorResponse);
 
-    console.error('Ocorreu um erro', errorResponse);
     } else {
       msg = 'Erro ao processar serviço remoto, contate o administrador do sistema!!!';
       console.error('Ocorreu um erro', errorResponse);
