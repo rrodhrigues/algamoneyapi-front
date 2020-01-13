@@ -7,7 +7,8 @@
       </div>
 
       <div class="ui-g-12">
-        <p-selectButton [options]="tipos" #tipo></p-selectButton>
+        <p-selectButton [options]="tipos" #tipo name="tipo"
+          [(ngModel)]="lancamento.tipo"></p-selectButton>
       </div>
 
       <div class="ui-g-6 ui-md-3 ui-fluid">
@@ -15,15 +16,21 @@
         <p-calendar dateFormat="dd/mm/yy"
           [inline]="false" [readonlyInput]="false"
           [showIcon]="false"
-          name="vencimento" #vencimento="ngModel" required ngModel></p-calendar>
+          name="vencimento" #vencimento="ngModel"
+          [(ngModel)]="lancamento.dataVencimento"
+          required></p-calendar>
 
           <app-message [control]="vencimento" error="required"
           text="Informe uma data."></app-message>
       </div>
+
       <div class="ui-g-6 ui-md-3 ui-fluid">
         <label>{{ tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
         <p-calendar dateFormat="dd/mm/yy"
-        name="pagamento" #pagamento="ngModel" required ngModel></p-calendar>
+          name="pagamento"
+          #pagamento="ngModel"
+          [(ngModel)]="lancamento.dataPagamento"
+          required></p-calendar>
 
         <app-message [control]="pagamento" error="required"
         text="Informe uma data."></app-message>
@@ -32,43 +39,50 @@
       <div class="ui-g-12 ui-md-9 ui-fluid">
         <label for="">Descrição {{ descricao.errors | json }}</label>
         <input pInputText type="text" name="descricao"
-          ngModel #descricao="ngModel" required minlength="5">
+          #descricao="ngModel" required minlength="5"
+          [(ngModel)]="lancamento.descricao">
 
         <app-message [control]="descricao" error="required"
         text="Informe uma descrição"></app-message>
-
         <app-message [control]="descricao" error="minlength"
         text="Minimo de {{ descricao.errors?.minlength?.requiredLength }} caracteres."></app-message>
       </div>
 
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label for="">Valor</label>
-        <input pInputText type="text" placeholder="0,00" name="valor"
-        currencyMask
-        [options]="{prefix: 'R$ ', thousands:'.', decimal:',',allowNegative: false}"
-        ngModel>
+        <input
+          pInputText type="text"
+          placeholder="0,00"
+          name="valor"
+          currencyMask [options]="{prefix: 'R$ ', thousands:'.', decimal:',',allowNegative: false}"
+          [(ngModel)]="lancamento.valor" required>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
-        <label for="">Categoria {{ categoria.value }}</label>
-        <p-dropdown [options]="categorias" placeholder="Selecione"
-        [autoWidth]="false" #categoria></p-dropdown>
+        <label for="">Categoria </label>
+        <p-dropdown
+          name="categoria"
+          [options]="categorias"
+          placeholder="Selecione" [autoWidth]="false"
+          [(ngModel)]="lancamento.categoria.codigo">
+        </p-dropdown>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
-        <label for="">Pessoa {{ pessoa.value }}</label>
-        <p-dropdown [options]="pessoas" placeholder="Selecione"
-        [autoWidth]="false" [filter]=true name="pessoa"
-        ngModel #pessoa="ngModel" required></p-dropdown>
-
-        <app-message [control]="pessoa" error="required"
-        text="Informe uma pessoa"></app-message>
+        <label for="">Pessoa </label>
+        <p-dropdown name="pessoa"
+          [options]="pessoas" placeholder="Selecione"
+          [autoWidth]="false" [filter]="true"
+          [(ngModel)]="lancamento.pessoa.codigo"
+          required></p-dropdown>
       </div>
 
       <div class="ui-g-12 ui-fluid">
         <label>Observação</label>
         <textarea pInputTextarea rows="3" ngModel
-          name="observacao" #observacao="ngModel" required></textarea>
+          name="observacao" #observacao="ngModel"
+          [(ngModel)]="lancamento.observacao"
+          required></textarea>
 
         <app-message [control]="observacao" error="required"
         text="Informe uma observação"></app-message>
