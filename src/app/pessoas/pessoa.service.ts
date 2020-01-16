@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, URLSearchParams } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
+import { Pessoa } from 'app/core/model';
 
 export class PessoaFiltro {
   nome: string;
@@ -70,5 +71,18 @@ export class PessoaService {
       .put(`${this.pessoasURl}/${pessoa.codigo}/ativo`, situacao, { headers })
       .toPromise();
     return null;
+  }
+
+  async adicionar(pessoa: Pessoa): Promise<Pessoa> {
+    const headers = new Headers();
+
+    headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    headers.append('Content-Type', 'application/json');
+
+    const response = await this.http
+      .post(this.pessoasURl, JSON.stringify(pessoa), { headers })
+      .toPromise();
+
+    return response.json();
   }
 }
