@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Pessoa } from 'app/core/model';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pessoa-cadastro.component.css']
 })
 export class PessoaCadastroComponent implements OnInit {
+
+  pessoa = new Pessoa();
 
   estados = [
     {label: 'São Paulo', value: 'SÃO PAULO'},
@@ -23,6 +27,12 @@ export class PessoaCadastroComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  salvar(form: FormControl) {
+    this.pessoa.ativo = true;
+
+    console.log(this.pessoa);
   }
 
 }

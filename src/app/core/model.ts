@@ -1,11 +1,12 @@
 export class Categoria {
   codigo: number;
 }
-
 export class Pessoa {
   codigo: number;
+  nome: string;
+  ativo: boolean;
+  endereco = new Endereco();
 }
-
 export class Lancamento {
   codigo: number;
   tipo: string = 'RECEITA';
@@ -17,4 +18,12 @@ export class Lancamento {
   pessoa = new Pessoa();
   categoria = new Categoria();
 }
-
+export class Endereco {
+  logradouro: string;
+  numero: number;
+  complemento: string;
+  bairro: string;
+  cep: string;
+  cidade: string;
+  estado: string;
+}

@@ -1,5 +1,6 @@
 <div class="container">
-  <form>
+  <form #cadastroPessoaForm="ngForm" (ngSubmit)="salvar(cadastroPessoaForm)"
+    autocomplete="off">
 
     <div class="ui-g">
       <div class="ui-g-12">
@@ -8,47 +9,56 @@
 
       <div class="ui-g-12 ui-fluid">
         <label for="">Nome</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="nome" [(ngModel)]="pessoa.nome" >
       </div>
 
       <div class="ui-g-12 ui-md-9 ui-fluid">
         <label for="">Logradouro</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="logradouro"
+          [(ngModel)]="pessoa.endereco.logradouro">
       </div>
 
       <div class="ui-g-12 ui-md-3 ui-fluid">
         <label for="">Número</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="numero"
+          [(ngModel)]="pessoa.endereco.numero">
       </div>
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label>Complemento</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="complemento"
+          [(ngModel)]="pessoa.endereco.complemento">
       </div>
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label>Bairro</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="bairro"
+          [(ngModel)]="pessoa.endereco.bairro">
       </div>
 
       <div class="ui-g-12 ui-md-4 ui-fluid">
         <label>CEP</label>
-        <p-inputMask mask="999.999-99"></p-inputMask>
+        <p-inputMask mask="999.999-99" name="cep"
+          [(ngModel)]="pessoa.endereco.cep"></p-inputMask>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Cidade</label>
-        <input pInputText type="text">
+        <input pInputText type="text" name="cidade"
+          [(ngModel)]="pessoa.endereco.cidade">
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Estado</label>
         <p-dropdown [options]="estados" placeholder="Selecione"
-        [autoWidth]="false" #estado></p-dropdown>
+          [autoWidth]="false" #estado name="estado"
+          [(ngModel)]="pessoa.endereco.estado">
+        </p-dropdown>
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar"></button>
+        <button pButton type="submit" label="Salvar"
+          [disabled]="!cadastroPessoaForm.valid"></button>
         <button pButton type="button" label="Novo" class="ui-button-info"></button>
         <a href="javascript:;">Voltar para a pesquisa</a>
       </div>
