@@ -87,7 +87,12 @@ export class LancamentoService {
     return this.http
       .put(this.lancamentosUrl, JSON.stringify(lancamento), { headers })
       .toPromise()
-      .then(response => response.json()); 
+      .then(response => {
+        const lancamentoAtualizado = response.json() as Lancamento;
+        this.converterStringsParaDatas([lancamentoAtualizado])
+
+        return lancamentoAtualizado;
+      });
   }
 
   buscarPorCodigo(codigo: number): Promise<Lancamento> {
@@ -95,10 +100,26 @@ export class LancamentoService {
     headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
     headers.append('Content-Type', 'application/json');
 
-    this.http.get(`${this.lancamentosUrl}`)
+    return this.http
+      .get(`${this.lancamentosUrl}/${codigo}`, {headers} )
+      .toPromise()
+      .then( response => {
+        const lancamento = response.json() as Lancamento;
+        this.converterStringsParaDatas([lancamento]);
+        return lancamento;
+      });
   }
 
-  private converterStringsParaDatas(lancamentos: Lancamento[]) {
+  private converterStringsParaDatas(lancamentos: Lancamento[]):void {
+    for(const lancamento of lancamentos) {
+      lancamento.dataVencimento =
+        moment(lancamento.dataVencimento, 'YYYY-MM-DD').toDate();
+
+      if(lancamento.dataPagamento) {
+        lancamento.dataPagamento =
+          moment(lancamento.dataPagamento,'YYYY-MM-DD').toDate();
+      }
+    }
 
   }
 
