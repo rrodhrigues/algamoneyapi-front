@@ -85,7 +85,7 @@ export class LancamentoService {
     headers.append('Content-Type', 'application/json');
 
     return this.http
-      .put(this.lancamentosUrl, JSON.stringify(lancamento), { headers })
+      .put(`${ this.lancamentosUrl }/${lancamento.codigo}`, JSON.stringify(lancamento), { headers })
       .toPromise()
       .then(response => {
         const lancamentoAtualizado = response.json() as Lancamento;
