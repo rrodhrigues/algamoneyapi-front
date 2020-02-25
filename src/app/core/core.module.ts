@@ -1,5 +1,6 @@
 import { NgModule, LOCALE_ID } from "@angular/core";
 import { CommonModule } from '@angular/common';
+import { Title } from "@angular/platform-browser";
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { ErrorHandlerService } from './error-handler.service';
@@ -13,8 +14,6 @@ import { ConfirmationService } from "primeng/components/common/api";
 import { CategoriaService } from "app/categoria/categoria.service";
 import { RouterModule } from "@angular/router";
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
-
-
 @NgModule({
   imports: [
     CommonModule,
@@ -35,6 +34,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     PessoaService,
     ConfirmationService,
     CategoriaService,
+    Title,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
   ]
 })

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 import { ToastyService } from 'ng2-toasty';
 
@@ -22,10 +23,11 @@ export class LancamentosPesquisaComponent implements OnInit {
   constructor(private lancamentoService: LancamentoService,
               private toastyService: ToastyService,
               private confirmationService: ConfirmationService,
-              private errorHandlerService: ErrorHandlerService) {}
+              private errorHandlerService: ErrorHandlerService,
+              private title: Title) {}
 
   ngOnInit(): void {
-
+    this.title.setTitle('Pesquisa de lançamentos');
   }
 
   pesquisar(pagina = 0) {
