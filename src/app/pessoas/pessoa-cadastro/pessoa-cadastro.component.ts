@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 import { ToastyService } from 'ng2-toasty';
 
 import { Pessoa } from 'app/core/model';
 import { PessoaService } from '../pessoa.service';
 import { ErrorHandlerService } from 'app/core/error-handler.service';
-
 
 @Component({
   selector: 'app-pessoa-cadastro',
@@ -23,9 +23,12 @@ export class PessoaCadastroComponent implements OnInit {
               private toasty: ToastyService,
               private errorHandler: ErrorHandlerService, 
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router, 
+              private title: Title) { }
 
   ngOnInit() {
+    this.title.setTitle('Nova Pessoa');
+
     this.carregarEstados();
     
     const codigoPessoa = this.route.snapshot.params['codigo']; 
@@ -42,6 +45,8 @@ export class PessoaCadastroComponent implements OnInit {
     this.pessoaService.buscaPorCodigo(codigo)
       .then(pessoa => {
         this.pessoa = pessoa; 
+
+        this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
@@ -82,6 +87,7 @@ export class PessoaCadastroComponent implements OnInit {
       .then(pessoa => {
         this.pessoa = pessoa;
         this.toasty.success('Pessoa alterada com sucesso!');
+        this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
@@ -100,6 +106,10 @@ export class PessoaCadastroComponent implements OnInit {
       {label: 'Mato Grosso do Sul', value: 'MATO GROSSO DO SUL'},
       {label: 'Mato Grosso', value: 'MATO GROSSO'}
     ]
+  }
+
+  atualizarTituloEdicao() {
+    this.title.setTitle(`Edição de Pessoa: ${this.pessoa.nome}`);
   }
 
 }
